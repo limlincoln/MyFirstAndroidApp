@@ -25,12 +25,13 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         try{
-            //View fragmentFirstLayout = inflater.inflate(R.layout.fragment_first, container, false);
-            //showCountTextView = fragmentFirstLayout.findViewById(R.id.textview_first);
-            //return fragmentFirstLayout;
+            View fragmentFirstLayout = inflater.inflate(R.layout.fragment_first, container, false);
+            showCountTextView = fragmentFirstLayout.findViewById(R.id.textview_first);
+
 
             binding = FragmentFirstBinding.inflate(inflater, container, false);
-            return binding.getRoot();
+            return fragmentFirstLayout;
+            //return binding.getRoot();
 
         } catch (Exception e){
             Log.e("TAG", "onCreateView", e);
@@ -60,13 +61,23 @@ public class FirstFragment extends Fragment {
         view.findViewById(R.id.random).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countfunction(view);
+                //countfunction(view);
+                testfunction();
             }
             private void countfunction(View view){
                 String countstr = showCountTextView.getText().toString();
                 Integer count = Integer.parseInt(countstr);
                 count++;
                 showCountTextView.setText(count.toString());
+            }
+
+            private void testfunction(){
+                String countstr = showCountTextView.getText().toString();
+                Integer count = Integer.parseInt(countstr);
+                count++;
+                showCountTextView.setText(count.toString());
+                Toast toasty = Toast.makeText(getActivity(), count.toString(), Toast.LENGTH_SHORT);
+                toasty.show();
             }
         });
 
