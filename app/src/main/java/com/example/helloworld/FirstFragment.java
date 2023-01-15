@@ -14,6 +14,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.helloworld.databinding.FragmentFirstBinding;
 
+import java.util.Random;
+
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
@@ -42,42 +44,55 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.next.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                int currentCount = Integer.parseInt(showCountTextView.getText().toString());
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(currentCount);
+                NavHostFragment.findNavController(FirstFragment.this).navigate(action);
+                //NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
 
         view.findViewById(R.id.toast).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+                displayToast();
+                countfunction();
+            }
+            private void displayToast(){
                 Toast mytoast = Toast.makeText(getActivity(), "Toastie :3", Toast.LENGTH_SHORT);
                 mytoast.show();
+            }
+            private void countfunction(){
+                String countstr = showCountTextView.getText().toString();
+                Integer count = Integer.parseInt(countstr);
+                count++;
+                showCountTextView.setText(count.toString());
             }
         });
 
         view.findViewById(R.id.random).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //countfunction(view);
-                testfunction();
+                setrandomnumber();
             }
-            private void countfunction(View view){
-                String countstr = showCountTextView.getText().toString();
-                Integer count = Integer.parseInt(countstr);
-                count++;
-                showCountTextView.setText(count.toString());
-            }
+            public int GenerateRandomNumber(){
 
-            private void testfunction(){
                 String countstr = showCountTextView.getText().toString();
                 Integer count = Integer.parseInt(countstr);
-                count++;
-                showCountTextView.setText(count.toString());
-                Toast toasty = Toast.makeText(getActivity(), count.toString(), Toast.LENGTH_SHORT);
-                toasty.show();
+
+                Random random = new java.util.Random();
+                int randomnumber = 0;
+                if (count > 0){
+                    randomnumber = random.nextInt(count + 1);
+                }
+                return randomnumber;
+            }
+            private void setrandomnumber(){
+                int randnum = GenerateRandomNumber();
+                String num = String.valueOf(randnum);
+                showCountTextView.setText(num);
             }
         });
 

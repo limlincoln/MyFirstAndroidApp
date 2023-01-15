@@ -10,5 +10,6 @@
     <string name="random">Random</string>
 
     <string name="hello_first_fragment">0</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="randomtextview_secondfragment">0</string>
+    <string name="headertextview_secondfragment">Here is a random number between 0 and %d</string>
 </resources>
